@@ -1,7 +1,7 @@
 #ifndef H_ROUTINE
 #define H_ROUTINE
 
-#include "../util.h"
+#include "util.h"
 
 #define arg_list BZARG
 // n is the argument number plus one, since the first list element is the routine number

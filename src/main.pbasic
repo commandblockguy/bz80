@@ -1,11 +1,7 @@
 #include "registers.h"
 #include "util.h"
-#include "routines/routine.h"
+#include "routine.h"
 #include "labels.h"
-
-"Automatically generated."
-"Original code:"
-"https://git.io/Jfodk"
 
 // Handle subroutine calls
 // arg_list(1) is the numeric id of the subroutine to run
@@ -16,8 +12,22 @@ Then
 #include "routines/test_routine.pbasic"
 End
 
-Disp "Starting Program"
-test_routine(100)
-Disp "Call returned!"
+"Auto-generated."
+"Original code:"
+"https://git.io/Jfodk"
+
+0→reg_ix
+0→reg_iy
+0→reg_mbase
+0→reg_sps
+0→reg_spl
+0→adl
+0→ief
+0→madl
+1→unhalted
+
+While unhalted
+
+End
 
 Lbl lbl_exit
