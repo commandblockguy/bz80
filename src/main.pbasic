@@ -10,24 +10,24 @@ SetUpEditor arg_list
 If dim(list(arg_list))
 Then
 #include "routines/test_routine.pbasic"
+Return
 End
 
 "Auto-generated."
 "Original code:"
 "https://git.io/Jfodk"
 
-0→reg_ix
-0→reg_iy
-0→reg_mbase
-0→reg_sps
-0→reg_spl
-0→adl
-0→ief
-0→madl
-1→unhalted
+DelVar reg_ix
+DelVar reg_iy
+DelVar reg_mbase
+DelVar reg_pc
+DelVar reg_sps
+DelVar reg_spl
+DelVar adl
+DelVar ief
+DelVar madl
 
-While unhalted
-
+While getKey≠45
 End
 
 Lbl lbl_exit

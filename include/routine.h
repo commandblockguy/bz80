@@ -11,6 +11,6 @@
 
 #define RoutineHeader(id) If list(arg_list)(1)=id:Then
 // Need the colon here or the preprocessor puts a space in
-#define RoutineFooter DelVar list(arg_list):Stop:End
+#define RoutineFooter DelVar list(arg_list):Return:End
 
 #endif

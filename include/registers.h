@@ -3,6 +3,8 @@
 
 #include "byte_util.h"
 
+#define mem       Str0
+
 #define reg_a     A
 #define reg_ubc   B
 #define reg_ude   D
@@ -22,6 +24,5 @@
 #define adl       C
 #define madl      E
 #define ief       I
-#define unhalted  R
 
 #endif
