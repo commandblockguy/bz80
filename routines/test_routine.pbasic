@@ -1,0 +1,12 @@
+#include "routine.h"
+
+#define test_routine_id 1337
+#define test_routine(n) call(test_routine_id, n)
+
+RoutineHeader(test_routine_id)
+
+Disp "Test routine called!"
+Disp "The first arg is:"
+Disp arg(2)
+
+RoutineFooter

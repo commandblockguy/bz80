@@ -1,0 +1,23 @@
+#include "registers.h"
+#include "util.h"
+#include "routines/routine.h"
+#include "labels.h"
+
+"Automatically generated."
+"Original code:"
+"https://git.io/Jfodk"
+
+// Handle subroutine calls
+// arg_list(1) is the numeric id of the subroutine to run
+// The remaining elements of the list are the arguments for that routine
+SetUpEditor arg_list
+If dim(list(arg_list))
+Then
+#include "routines/test_routine.pbasic"
+End
+
+Disp "Starting Program"
+test_routine(100)
+Disp "Call returned!"
+
+Lbl lbl_exit
