@@ -8,9 +8,9 @@
 // The remaining elements of the list are the arguments for that routine
 SetUpEditor arg_list
 If dim(list(arg_list))
-Then
-#include "routines/test_routine.pbasic"
-Return
+  Then
+#include "routines/error.pbasic"
+  Return
 End
 
 "Auto-generated."

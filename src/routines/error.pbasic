@@ -1,0 +1,33 @@
+#include "routine.h"
+#include "util.h"
+
+#define ERROR_INCLUDE_FILENAME 1
+
+#define error_id 0
+#if ERROR_INCLUDE_FILENAME
+#define error(message) message→Str1:__FILE__→Str2:call(error_id, __LINE__)
+#define line arg(2)
+#else
+#define error(message) message→Str1:call(error_id)
+#endif
+
+RoutineHeader(error_id)
+  ClrHome
+  Output(1, 1, "Error:")
+  Output(1, 8, Str1)
+
+#if ERROR_INCLUDE_FILENAME
+  Output(9, 1, Str2)
+  Output(10, 1, "Line")
+  Output(10, 6, line)
+#endif
+
+  While not(getKey):End
+  
+  DelVar list(arg_list)
+  Stop
+End
+
+#if ERROR_INCLUDE_FILENAME
+#undef line
+#endif
