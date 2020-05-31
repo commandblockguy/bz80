@@ -23,8 +23,6 @@ RoutineHeader(error_id)
 #endif
 
   While not(getKey):End
-  
-  DelVar list(arg_list)
   Stop
 End
 

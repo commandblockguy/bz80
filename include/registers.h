@@ -3,7 +3,7 @@
 
 #include "byte_util.h"
 
-#define mem       Str0
+#define mem       L₁
 
 #define reg_a     A
 #define reg_ubc   B

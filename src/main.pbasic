@@ -2,13 +2,15 @@
 #include "util.h"
 #include "routine.h"
 #include "labels.h"
+Pause "" // Necessary so stuff gets tokenized correctly
 
 // Handle subroutine calls
 // arg_list(1) is the numeric id of the subroutine to run
 // The remaining elements of the list are the arguments for that routine
-SetUpEditor arg_list
-If dim(list(arg_list))
-  Then
+SetUpEditor call_list
+If dim(call_list):Then
+  call_list→arg_list
+  DelVar call_list
 #include "routines/error.pbasic"
   Return
 End
