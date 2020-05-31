@@ -2,6 +2,7 @@
 #include "util.h"
 #include "routine.h"
 #include "labels.h"
+#include "mem.h"
 Pause "" // Necessary so stuff gets tokenized correctly
 
 // Handle subroutine calls
@@ -29,7 +30,11 @@ DelVar adl
 DelVar ief
 DelVar madl
 
+999→dim(mem)
+8→dim(flags)
+
 While getKey≠45
+#include "process_instruction.pbasic"
 End
 
 Lbl lbl_exit

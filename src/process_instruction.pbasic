@@ -1,0 +1,9 @@
+#include "instruction.h"
+
+get_byte(reg_pc)
+{Ans, prefix_bkp, int(Ans / 64), remainder(int(Ans / 8), 8), remainder(Ans, 8)}
+augment(Ans,{int(Ans(4) / 2), remainder(Ans(4), 2)})→inst_part_list
+Disp Ans
+0→prefix_bkp
+
+reg_pc+1→reg_pc

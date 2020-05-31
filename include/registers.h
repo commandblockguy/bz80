@@ -4,11 +4,11 @@
 #include "byte_util.h"
 
 #define mem       L₁
+#define flags     L₄
 
 #define reg_a     A
 #define reg_ubc   B
 #define reg_ude   D
-#define reg_f     F
 #define reg_uhl   H
 #define reg_spl   L
 #define reg_mbase M
