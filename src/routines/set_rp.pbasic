@@ -1,0 +1,26 @@
+#include "routine.h"
+
+#define set_rp_id 5
+#define set_rp(reg, value) call(set_rp_id, reg, value)
+
+#define reg arg_list(2)
+#define value arg_list(3)
+
+RoutineHeader(set_rp_id)
+  If reg=0:Then
+    val→reg_ubc
+  Else
+    If reg=1:Then
+      val→reg_ude
+    Else
+      If reg=2:Then
+        val→reg_uhl
+      Else // reg=3
+        val→reg_spl
+      End
+    End
+  End
+RoutineFooter
+
+#undef value
+#undef reg

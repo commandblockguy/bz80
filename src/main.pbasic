@@ -3,6 +3,7 @@
 #include "routine.h"
 #include "labels.h"
 #include "mem.h"
+#include "instruction.h"
 Pause "" // Necessary so stuff gets tokenized correctly
 
 // Handle subroutine calls
@@ -13,6 +14,8 @@ If dim(call_list):Then
   call_list→arg_list
   DelVar call_list
 #include "routines/error.pbasic"
+#include "routines/set_r.pbasic"
+#include "routines/set_rp.pbasic"
   Return
 End
 
@@ -30,11 +33,25 @@ DelVar adl
 DelVar ief
 DelVar madl
 
+
+
+// Set up register tables
+TOSTR({reg_uhl,reg_uhl,reg_uhl,reg_ix,reg_iy,reg_ix,reg_iy})→table_curr_hl
+TOSTR(remainder(int({reg_ubc/256,reg_ubc,reg_ude/256,reg_ude,Ans/256,Ans,get_byte(reg_hl),reg_a}),256))→table_r
+TOSTR({reg_ubc,reg_ude,Ans,reg_spl})→table_rp
+TOSTR({flag_z,flag_c,flag_pv,flag_s})→table_cc
+
 999→dim(mem)
+DelVar flags
 8→dim(flags)
+
+no_prefix→prefix_bkp
 
 While getKey≠45
 #include "process_instruction.pbasic"
 End
 
 Lbl lbl_exit
+// Probably best to delete these to avoid confusing people checking their mem menu
+DelVar table_curr_hl
+DelVar table_cc

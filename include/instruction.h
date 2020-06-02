@@ -14,14 +14,29 @@
 #define inst_q         inst_part_list(7)
 
 
-#define prefix_bkp    N
+#define prefix_bkp     N
 
-#define no_prefix     0
-#define prefix_bits   1 // 0CBh
-#define prefix_ix     2 // 0DDh
-#define prefix_misc   3 // 0EDh
-#define prefix_iy     4 // 0FDh
-#define prefix_ixbits 5 // DDCBh
-#define prefix_iybits 6 // FDCBh
+#define no_prefix      1
+#define prefix_bits    2 // 0CBh
+#define prefix_misc    3 // 0EDh
+#define prefix_ix      4 // 0DDh
+#define prefix_iy      5 // 0FDh
+#define prefix_ixbits  6 // DDCBh
+#define prefix_iybits  7 // FDCBh
+
+#define table_curr_hl  list(A)//L₇
+// Require table_curr_hl to be in Ans
+#define table_r        L₅
+#define table_rp       L₆
+// Conditionals. Rather than using y (as in http://www.z80.info/decoding.htm), this is indexed with p and then xored with q
+#define table_cc       list(B)//L₈
+
+// Get the value of hl, ix, or iy depending on the prefix
+#define get_hl(prefix) table_curr_hl(prefix)
+#define get_h(prefix)  mid_byte(table_curr_hl(prefix))
+#define get_l(prefix)  low_byte(table_curr_hl(prefix))
+
+#define get_r(prefix, x)       get_hl(prefix):table_r(x+1)
+#define get_rp(prefix, x)      get_hl(prefix):table_rp(x+1)
 
 #endif
