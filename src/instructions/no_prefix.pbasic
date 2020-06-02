@@ -20,7 +20,16 @@ If inst_x=0:Then
     End
   End
   If inst_z=1:Then
-  
+    If inst_q=0:Then // LD rp, Mmn
+      set_rp(inst_p, get3(reg_pc + 1))
+      wrap24(reg_pc + 3)→reg_pc
+    Else // q=1: ADD HL, rp
+      get_hl(inst_prefix):table_rp(inst_p+1)+Ans → temp_var
+      Ans > 2^23 → flag_c
+      0 → flag_n
+      // todo: h flag
+      set_hl(wrap24(temp_var))
+    End
   End
   If inst_z=2:Then
   

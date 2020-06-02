@@ -8,15 +8,15 @@
 
 RoutineHeader(set_rp_id)
   If reg=0:Then
-    val→reg_ubc
+    value→reg_ubc
   Else
     If reg=1:Then
-      val→reg_ude
+      value→reg_ude
     Else
       If reg=2:Then
-        val→reg_uhl
+        set_hl(value)
       Else // reg=3
-        val→reg_spl
+        value→reg_spl
       End
     End
   End

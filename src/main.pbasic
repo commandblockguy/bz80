@@ -4,8 +4,6 @@
 #include "labels.h"
 #include "mem.h"
 #include "instruction.h"
-Pause "" // Necessary so stuff gets tokenized correctly
-
 // Handle subroutine calls
 // arg_list(1) is the numeric id of the subroutine to run
 // The remaining elements of the list are the arguments for that routine
@@ -14,6 +12,7 @@ If dim(call_list):Then
   call_list→arg_list
   DelVar call_list
 #include "routines/error.pbasic"
+#include "routines/set_hl.pbasic"
 #include "routines/set_r.pbasic"
 #include "routines/set_rp.pbasic"
   Return
@@ -47,9 +46,11 @@ DelVar flags
 
 no_prefix→prefix_bkp
 
+ClrHome
+
 While getKey≠45
 #include "process_instruction.pbasic"
-ClrHome
+//ClrHome
 Output(1,1, "A:")
 Output(1,4, reg_a)
 Output(2,1, "BC:")

@@ -1,0 +1,20 @@
+#include "routine.h"
+
+#define set_hl_id 6
+#define set_hl(value) call(set_hl_id, value)
+
+#define value arg_list(2)
+
+RoutineHeader(set_hl_id)
+  If inst_prefix=prefix_ix or inst_prefix=prefix_ixbits:Then
+    value→reg_ix
+  Else
+    If inst_prefix=prefix_iy or inst_prefix=prefix_iybits:Then
+      value→reg_iy
+    Else
+      value→reg_uhl
+    End
+  End
+RoutineFooter
+
+#undef value
