@@ -2,7 +2,7 @@
 (from TI- ***B*** ASIC e ***z80***)
 
 ### A ez80 emulator written in TI-BASIC.
-To use it, store the hex representation of the initial RAM state in Str0, then call prgmBZ80.
+To use it, store the initial RAM state in L1 with one byte per list element, then call prgmBZ80.
 
 
 ## FAQ:
