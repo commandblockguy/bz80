@@ -36,7 +36,7 @@ DelVar madl
 
 // Set up register tables
 TOSTR({reg_uhl,reg_uhl,reg_uhl,reg_ix,reg_iy,reg_ix,reg_iy})→table_curr_hl
-TOSTR(remainder(int({reg_ubc/256,reg_ubc,reg_ude/256,reg_ude,Ans/256,Ans,get_byte(reg_hl),reg_a}),256))→table_r
+TOSTR(remainder(int({reg_ubc/256,reg_ubc,reg_ude/256,reg_ude,Ans/256,Ans,get_byte(reg_uhl),reg_a}),256))→table_r
 TOSTR({reg_ubc,reg_ude,Ans,reg_spl})→table_rp
 TOSTR({flag_z,flag_c,flag_pv,flag_s})→table_cc
 
@@ -48,25 +48,27 @@ no_prefix→prefix_bkp
 
 ClrHome
 Output(1,1, "A:")
-Output(2,1, "BC:")
-Output(3,1, "DE:")
-Output(4,1, "HL:")
-Output(5,1, "IX:")
-Output(6,1, "IY:")
-Output(7,1, "SP:")
-Output(8,1, "PC:")
+Output(2,1, "F:")
+Output(3,1, "BC:")
+Output(4,1, "DE:")
+Output(5,1, "HL:")
+Output(6,1, "IX:")
+Output(7,1, "IY:")
+Output(8,1, "SP:")
+Output(9,1, "PC:")
 
 While getKey≠45
 #include "process_instruction.pbasic"
 //ClrHome
 Output(1,4, reg_a)
-Output(2,4, reg_ubc)
-Output(3,4, reg_ude)
-Output(4,4, reg_uhl)
-Output(5,4, reg_ix)
-Output(6,4, reg_iy)
-Output(7,4, reg_spl)
-Output(8,4, reg_pc)
+Output(2,4, flags)
+Output(3,4, reg_ubc)
+Output(4,4, reg_ude)
+Output(5,4, reg_uhl)
+Output(6,4, reg_ix)
+Output(7,4, reg_iy)
+Output(8,4, reg_spl)
+Output(9,4, reg_pc)
 //Pause ""
 End
 

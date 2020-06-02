@@ -7,7 +7,7 @@
 #define value arg_list(3)
 
 RoutineHeader(set_r_id)
-  wrap8(Ans)
+  wrap8(value)
   If reg=0:Then
     set_mid_byte(Ans, reg_ubc)→reg_ubc
   Else

@@ -61,17 +61,33 @@ If inst_x=0:Then
   End
   If inst_z=3:Then
     get_rp(inst_prefix, inst_p)
-    If inst_q:Then
+    If inst_q:Then // DEC rp
       set_rp(inst_p, Ans - 1)
-    Else
+    Else  // INC rp
       set_rp(inst_p, Ans + 1)
     End
   End
   If inst_z=4:Then
-  
+    get_r(inst_prefix, inst_y)
+    wrap8(Ans + 1)→temp_var
+    set_r(inst_y, temp_var)
+
+    // todo: h flag
+    temp_var>127→flag_s
+    not(temp_var)→flag_z
+    temp_var=128→flag_pv
+    0→flag_n
   End
   If inst_z=5:Then
-  
+    get_r(inst_prefix, inst_y)
+    wrap8(Ans - 1)→temp_var
+    set_r(inst_y, temp_var)
+
+    // todo: h flag
+    temp_var>127→flag_s
+    not(temp_var)→flag_z
+    temp_var=127→flag_pv
+    1→flag_n
   End
   If inst_z=6:Then
   
