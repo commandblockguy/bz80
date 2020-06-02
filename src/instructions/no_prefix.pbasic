@@ -1,24 +1,52 @@
-If inst_z=0:Then
+If inst_x=0:Then
+  If inst_z=0:Then
+    // y = 0: NOP
+    // y = 1: EX AF, AF'
+    If inst_y > 1:Then
+      wrap24(reg_pc + 1)→reg_pc
+      signed8(get_byte(reg_pc))→inst_immediate
+      If inst_y = 2:Then // DJNZ d
+        set_mid_byte(wrap8(reg_b - 1), reg_ubc)→reg_ubc
+        If reg_b
+          wrap24(reg_pc + inst_immediate)→reg_pc
+      Else
+        If inst_y = 3:Then // JR d
+          wrap24(reg_pc + inst_immediate)→reg_pc
+        Else // y = 4..7: JR cc[y-4], d
+          If cond((inst_y - 4))
+            wrap24(reg_pc + inst_immediate)→reg_pc
+        End
+      End
+    End
+  End
+  If inst_z=1:Then
+  
+  End
+  If inst_z=2:Then
+  
+  End
+  If inst_z=3:Then
+  
+  End
+  If inst_z=4:Then
+  
+  End
+  If inst_z=5:Then
+  
+  End
+  If inst_z=6:Then
+  
+  End
+  If inst_z=7:Then
+  
+  End
+End
+If inst_x=1:Then
 
 End
-If inst_z=1:Then
+If inst_x=2:Then
 
 End
-If inst_z=2:Then
-
-End
-If inst_z=3:Then
-
-End
-If inst_z=4:Then
-
-End
-If inst_z=5:Then
-
-End
-If inst_z=6:Then
-
-End
-If inst_z=7:Then
+If inst_x=3:Then
 
 End

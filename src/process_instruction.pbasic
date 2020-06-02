@@ -11,4 +11,4 @@ If in(inst_prefix,({no_prefix,prefix_ix,prefix_iy})):Then
 #include "instructions/no_prefix.pbasic"
 End
 
-reg_pc+1→reg_pc
+wrap24(reg_pc + 1)→reg_pc

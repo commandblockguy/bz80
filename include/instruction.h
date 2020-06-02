@@ -12,6 +12,7 @@
 #define inst_p         inst_part_list(6)
 // LSB of y
 #define inst_q         inst_part_list(7)
+#define inst_immediate inst_part_list(8)
 
 
 #define prefix_bkp     N
@@ -30,6 +31,8 @@
 #define table_rp       L₆
 // Conditionals. Rather than using y (as in http://www.z80.info/decoding.htm), this is indexed with p and then xored with q
 #define table_cc       list(B)//L₈
+
+#define cond(cc)       table_cc(int(cc / 2) + 1) xor not(remainder(cc, 2))
 
 // Get the value of hl, ix, or iy depending on the prefix
 #define get_hl(prefix) table_curr_hl(prefix)
