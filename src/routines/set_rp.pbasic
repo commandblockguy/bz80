@@ -7,16 +7,17 @@
 #define value arg_list(3)
 
 RoutineHeader(set_rp_id)
+  wrap24(value)
   If reg=0:Then
-    value→reg_ubc
+    Ans→reg_ubc
   Else
     If reg=1:Then
-      value→reg_ude
+      Ans→reg_ude
     Else
       If reg=2:Then
-        set_hl(value)
+        set_hl(Ans)
       Else // reg=3
-        value→reg_spl
+        Ans→reg_spl
       End
     End
   End

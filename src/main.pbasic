@@ -47,25 +47,25 @@ DelVar flags
 no_prefix→prefix_bkp
 
 ClrHome
+Output(1,1, "A:")
+Output(2,1, "BC:")
+Output(3,1, "DE:")
+Output(4,1, "HL:")
+Output(5,1, "IX:")
+Output(6,1, "IY:")
+Output(7,1, "SP:")
+Output(8,1, "PC:")
 
 While getKey≠45
 #include "process_instruction.pbasic"
 //ClrHome
-Output(1,1, "A:")
 Output(1,4, reg_a)
-Output(2,1, "BC:")
 Output(2,4, reg_ubc)
-Output(3,1, "DE:")
 Output(3,4, reg_ude)
-Output(4,1, "HL:")
 Output(4,4, reg_uhl)
-Output(5,1, "IX:")
 Output(5,4, reg_ix)
-Output(6,1, "IY:")
 Output(6,4, reg_iy)
-Output(7,1, "SP:")
 Output(7,4, reg_spl)
-Output(8,1, "PC:")
 Output(8,4, reg_pc)
 //Pause ""
 End

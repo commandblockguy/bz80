@@ -60,7 +60,12 @@ If inst_x=0:Then
     End
   End
   If inst_z=3:Then
-  
+    get_rp(inst_prefix, inst_p)
+    If inst_q:Then
+      set_rp(inst_p, Ans - 1)
+    Else
+      set_rp(inst_p, Ans + 1)
+    End
   End
   If inst_z=4:Then
   
