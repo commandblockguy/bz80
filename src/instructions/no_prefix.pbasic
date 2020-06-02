@@ -21,7 +21,7 @@ If inst_x=0:Then
   End
   If inst_z=1:Then
     If inst_q=0:Then // LD rp, Mmn
-      set_rp(inst_p, get3(reg_pc + 1))
+      set_rp(inst_p, get24(reg_pc + 1))
       wrap24(reg_pc + 3)→reg_pc
     Else // q=1: ADD HL, rp
       get_hl(inst_prefix):table_rp(inst_p+1)+Ans → temp_var
@@ -32,7 +32,32 @@ If inst_x=0:Then
     End
   End
   If inst_z=2:Then
-  
+    If inst_p > 1:Then
+      get24(reg_pc + 1)→inst_immediate
+      wrap24(reg_pc + 3)→reg_pc
+    End
+    If inst_q:Then
+      If inst_p=0
+        get_byte(reg_ubc)→reg_a
+      If inst_p=1
+        get_byte(reg_ude)→reg_a
+      If inst_p=2:Then
+        Pause {inst_immediate, get_byte(inst_immediate)}
+        set_hl(get_byte(inst_immediate))
+      End
+      If inst_p=3
+        get_byte(inst_immediate)→reg_a
+    Else
+      If inst_p=0
+        set_byte(reg_ubc, reg_a)
+      If inst_p=1
+        set_byte(reg_ude, reg_a)
+      If inst_p=2: Then
+        set_bytes(inst_immediate, 3, get_hl(inst_prefix))
+      End
+      If inst_p=3
+        set_byte(inst_immediate, reg_a)
+    End
   End
   If inst_z=3:Then
   
