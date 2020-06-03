@@ -27,6 +27,12 @@ End
 "Original code:"
 "https://git.io/Jfodk"
 
+// todo: remove
+DelVar reg_ubc
+DelVar reg_ude
+DelVar reg_uhl
+DelVar reg_a
+
 DelVar reg_ix
 DelVar reg_iy
 DelVar reg_mbase
@@ -64,17 +70,28 @@ Output(9,1, "PC:")
 
 While getKey≠45
 #include "process_instruction.pbasic"
-//ClrHome
-Output(1,4, reg_a)
-Output(2,4, flags)
-Output(3,4, reg_ubc)
-Output(4,4, reg_ude)
-Output(5,4, reg_uhl)
-Output(6,4, reg_ix)
-Output(7,4, reg_iy)
-Output(8,4, reg_spl)
-Output(9,4, reg_pc)
-//Pause ""
+  ClrHome
+  Output(1,1, "A:")
+  Output(2,1, "F:")
+  Output(3,1, "BC:")
+  Output(4,1, "DE:")
+  Output(5,1, "HL:")
+  Output(6,1, "IX:")
+  Output(7,1, "IY:")
+  Output(8,1, "SP:")
+  Output(9,1, "PC:")
+  Output(1,4, reg_a)
+  Output(2,4, flags)
+  Output(3,4, reg_ubc)
+  Output(4,4, reg_ude)
+  Output(5,4, reg_uhl)
+  Output(6,4, reg_ix)
+  Output(7,4, reg_iy)
+  Output(8,4, reg_spl)
+  Output(8,12,get24(reg_spl))
+  Output(9,4, reg_pc)
+  While getKey≠105:End
+  getKey
 End
 
 Lbl lbl_exit

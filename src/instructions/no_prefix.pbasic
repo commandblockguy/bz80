@@ -53,7 +53,7 @@ If inst_x=0:Then
       If inst_p=1
         set_byte(reg_ude, reg_a)
       If inst_p=2: Then
-        set_bytes(inst_immediate, 3, get_hl(inst_prefix))
+        set24(inst_immediate, get_hl(inst_prefix))
       End
       If inst_p=3
         set_byte(inst_immediate, reg_a)
@@ -173,7 +173,7 @@ If inst_x=3:Then
       get_hl(inst_prefix)→temp_var
       get24(reg_spl)→temp_var2
       set_hl(temp_var2)
-      set_bytes(reg_spl, 3, temp_var)
+      set24(reg_spl, temp_var)
     End
     If inst_y=5:Then // EX DE,HL
       reg_ude→temp_var
@@ -195,7 +195,7 @@ If inst_x=3:Then
     If inst_q:Then
       If inst_p=0:Then // CALL Mmn
         get24(reg_pc + 1)→inst_immediate
-        push24(reg_pc)
+        push24((reg_pc + 4))
         wrap24(inst_immediate - 1)→reg_pc
       End
       If inst_p=1:Then // DD prefix
@@ -211,7 +211,8 @@ If inst_x=3:Then
       If inst_p=3:Then
         push24(256 reg_a + Σ(flags(X+1)^X,X,0,7))
       Else
-        push24(get_rp(inst_prefix, inst_p))
+        get_rp(inst_prefix, inst_p)→temp_var2
+        push24(temp_var2)
       End
     End
   End
