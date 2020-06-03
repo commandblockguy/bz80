@@ -109,8 +109,117 @@ If inst_x=1:Then
   End
 End
 If inst_x=2:Then
-
+  // todo: ALU instructions
 End
 If inst_x=3:Then
-
+  If inst_z=0:Then // RET cc
+    If cond(inst_y):Then
+      pop24()
+      wrap24(Ans - 1)→reg_pc
+    End
+  End
+  If inst_z=1:Then
+    If inst_q:Then
+      If inst_p=0:Then // RET
+        pop24()
+        wrap24(Ans - 1)→reg_pc
+      End
+      // p = 1: EXX
+      If inst_p=2:Then // JP HL
+        get_hl(inst_prefix) - 1 → reg_pc
+      End
+      If inst_p=3:Then // LD SP, HL
+        get_hl(inst_prefix)→reg_spl
+      End
+    Else // q=0: POP rp
+      pop24()→temp_var
+      If inst_p=3:Then
+        mid_byte(Ans)→reg_a
+        seq(int(2fPart(.5 temp_var / 2^I)), I, 0, 7)→flags
+      Else
+        set_rp(inst_p, Ans)
+      End
+    End
+  End
+  If inst_z=2:Then // JP cc, Mmn
+    get24(reg_pc + 1)→inst_immediate
+    wrap24(reg_pc + 3)→reg_pc
+    If cond(inst_y)
+      wrap24(inst_immediate - 1)→reg_pc
+  End
+  If inst_z=3:Then
+    If inst_y=0:Then // JP Mmn
+      get24(reg_pc + 1)→inst_immediate
+      wrap24(inst_immediate - 1)→reg_pc
+    End
+    If inst_y=1:Then // prefix CB
+      If inst_prefix=no_prefix:Then
+        prefix_bits→prefix_bkp
+      Else
+        If inst_prefix=prefix_ix:Then
+          prefix_ixbits→prefix_bkp
+        Else // prefix_iy
+          prefix_iybits→prefix_bkp
+        End
+      End
+    End
+    // y=2: OUT (n),A
+    // y=3: IN A,(n)
+    // Not implemented due to the lack of hardware
+    If inst_y=2 or inst_y=3:Then
+      wrap24(reg_pc+1)→reg_pc
+    End
+    If inst_y=4:Then // EX (SP), HL
+      get_hl(inst_prefix)→temp_var
+      get24(reg_spl)→temp_var2
+      set_hl(temp_var2)
+      set_bytes(reg_spl, 3, temp_var)
+    End
+    If inst_y=5:Then // EX DE,HL
+      reg_ude→temp_var
+      get_hl(inst_prefix)→reg_ude
+      set_hl(temp_var)
+    End
+    // y=6: DI
+    // y=7: EI
+  End
+  If inst_z=4:Then // CALL cc, Mmn
+    get24(reg_pc + 1)→inst_immediate
+    wrap24(reg_pc + 3)→reg_pc
+    If cond(inst_y):Then
+      push24(reg_pc)
+      wrap24(inst_immediate - 1)→reg_pc
+    End
+  End
+  If inst_z=5:Then
+    If inst_q:Then
+      If inst_p=0:Then // CALL Mmn
+        get24(reg_pc + 1)→inst_immediate
+        push24(reg_pc)
+        wrap24(inst_immediate - 1)→reg_pc
+      End
+      If inst_p=1:Then // DD prefix
+        prefix_ix→prefix_bkp
+      End
+      If inst_p=2:Then // ED prefix
+        prefix_misc→prefix_bkp
+      End
+      If inst_p=3:Then // FD prefix
+        prefix_iy→prefix_bkp
+      End
+    Else // q=0: PUSH rr
+      If inst_p=3:Then
+        push24(256 reg_a + Σ(flags(X+1)^X,X,0,7))
+      Else
+        push24(get_rp(inst_prefix, inst_p))
+      End
+    End
+  End
+  If inst_z=6:Then
+    // TODO: ALU instructions
+  End
+  If inst_z=7:Then
+    push24(reg_pc)
+    wrap24(8 inst_y - 1)→reg_pc
+  End
 End

@@ -8,8 +8,8 @@
 
 #define flag_c    flags(1)
 #define flag_n    flags(2)
-#define flag_pv   flags(4)
-#define flag_h    flags(6)
+#define flag_pv   flags(3)
+#define flag_h    flags(5)
 #define flag_z    flags(7)
 #define flag_s    flags(8)
 
