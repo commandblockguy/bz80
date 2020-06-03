@@ -4,6 +4,11 @@
 #include "labels.h"
 #include "mem.h"
 #include "instruction.h"
+
+// Doesn't tokenize without this, not sure why
+If 0
+A
+
 // Handle subroutine calls
 // arg_list(1) is the numeric id of the subroutine to run
 // The remaining elements of the list are the arguments for that routine

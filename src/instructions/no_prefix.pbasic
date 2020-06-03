@@ -67,7 +67,7 @@ If inst_x=0:Then
       set_rp(inst_p, Ans + 1)
     End
   End
-  If inst_z=4:Then
+  If inst_z=4:Then // INC r
     get_r(inst_prefix, inst_y)
     wrap8(Ans + 1)→temp_var
     set_r(inst_y, temp_var)
@@ -78,7 +78,7 @@ If inst_x=0:Then
     temp_var=128→flag_pv
     0→flag_n
   End
-  If inst_z=5:Then
+  If inst_z=5:Then // DEC r
     get_r(inst_prefix, inst_y)
     wrap8(Ans - 1)→temp_var
     set_r(inst_y, temp_var)
@@ -89,15 +89,24 @@ If inst_x=0:Then
     temp_var=127→flag_pv
     1→flag_n
   End
-  If inst_z=6:Then
-  
+  If inst_z=6:Then // LD r, n
+    wrap24(reg_pc + 1)→reg_pc
+    signed8(get_byte(reg_pc))→inst_immediate
+    set_r(inst_y, inst_immediate)
   End
   If inst_z=7:Then
-  
+    // TODO: misc accumulator and flags
   End
 End
 If inst_x=1:Then
-
+  If inst_z=6 and inst_y=6:Then // HALT
+    Output(1, 20, "HALTed.")
+    While not(getKey):End
+    Return
+  Else // LD r, r
+    get_r(inst_prefix, inst_z)
+    set_r(inst_y, Ans)
+  End
 End
 If inst_x=2:Then
 
