@@ -4,6 +4,11 @@
 #include "labels.h"
 #include "mem.h"
 #include "instruction.h"
+#include "keys.h"
+
+#define dbg 1
+#define dbg_step 1
+#define dbg_full_redraw 1
 
 // Doesn't tokenize without this, not sure why
 If 0
@@ -57,6 +62,7 @@ DelVar flags
 
 no_prefix→prefix_bkp
 
+#if dev && !dbg_full_redraw
 ClrHome
 Output(1,1, "A:")
 Output(2,1, "F:")
@@ -67,9 +73,13 @@ Output(6,1, "IX:")
 Output(7,1, "IY:")
 Output(8,1, "SP:")
 Output(9,1, "PC:")
+#endif
 
-While getKey≠45
+While Ans ≠ key_clear
 #include "process_instruction.pbasic"
+
+#if dbg
+#if dbg_full_redraw
   ClrHome
   Output(1,1, "A:")
   Output(2,1, "F:")
@@ -80,6 +90,7 @@ While getKey≠45
   Output(7,1, "IY:")
   Output(8,1, "SP:")
   Output(9,1, "PC:")
+#endif
   Output(1,4, reg_a)
   Output(2,4, flags)
   Output(3,4, reg_ubc)
@@ -90,8 +101,12 @@ While getKey≠45
   Output(8,4, reg_spl)
   Output(8,12,get24(reg_spl))
   Output(9,4, reg_pc)
-  While getKey≠105:End
+#if dbg_step
+  While getKey ≠ key_enter:End
+#else
   getKey
+#endif
+#endif
 End
 
 Lbl lbl_exit
