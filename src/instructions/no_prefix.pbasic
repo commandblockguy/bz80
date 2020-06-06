@@ -95,7 +95,41 @@ If inst_x=0:Then
     set_r(inst_y, inst_immediate)
   End
   If inst_z=7:Then
-    // TODO: misc accumulator and flags
+    0→flag_h
+    0→flag_n
+    If inst_y=0:Then // RLCA
+      reg_a > 127→flag_c
+      wrap8(2 reg_a + Ans)→reg_a 
+    End
+    If inst_y=1:Then // RRCA
+      remainder(reg_a, 2)→flag_c
+      128 Ans + int(reg_a / 2)→reg_a
+    End
+    If inst_y=2:Then // RLA
+      2 reg_a + flag_c→reg_a
+      reg_a > 255→flag_c
+      wrap8(reg_a)→reg_a
+    End
+    If inst_y=3:Then // RRA
+      reg_a / 2 + 128 flag_c→reg_a
+      2 fPart(reg_a)→flag_c
+      int(reg_a)→reg_a
+    End
+    // y=4: DAA
+    If inst_y=5:Then // CPL
+      not(real_to_bin(reg_a))
+      bin_to_real(Ans)→reg_a
+      1→flag_h
+      1→flag_n
+    End
+    If inst_y=6:Then // SCF
+      1→flag_c
+    End
+    If inst_y=7:Then // CCF
+      flag_c→flag_h
+      0→flag_n
+      not(flag_c)→flag_c
+    End
   End
 End
 If inst_x=1:Then
@@ -135,7 +169,7 @@ If inst_x=3:Then
       pop24()→temp_var
       If inst_p=3:Then
         mid_byte(Ans)→reg_a
-        seq(int(2fPart(.5 temp_var / 2^I)), I, 0, 7)→flags
+        real_to_bin(temp_var)→flags
       Else
         set_rp(inst_p, Ans)
       End
@@ -209,11 +243,11 @@ If inst_x=3:Then
       End
     Else // q=0: PUSH rr
       If inst_p=3:Then
-        push24(256 reg_a + Σ(flags(X+1)^X,X,0,7))
+        256 reg_a + bin_to_real(flags)→temp_var2
       Else
         get_rp(inst_prefix, inst_p)→temp_var2
-        push24(temp_var2)
       End
+      push24(temp_var2)
     End
   End
   If inst_z=6:Then

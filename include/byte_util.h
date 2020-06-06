@@ -20,4 +20,7 @@
 #define set_mid_byte(b, n)  low_byte(n) + 256*b + 4^8 high_byte(n)
 #define set_high_byte(b, n) remainder(n,4^8)+4^8*b
 
+#define bin_to_real(l) Σ(l(X+1)2^X,X,0,7)
+#define real_to_bin(n) int(2fPart(.5 seq(n / 2^I, I, 0, 7)))
+
 #endif
