@@ -1,4 +1,0 @@
-[submodule "tivars_lib_cpp"]
-	path = tivars_lib_cpp
-	url = https://github.com/commandblockguy/tivars_lib_cpp
-	branch = old_cli

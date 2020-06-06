@@ -7,13 +7,13 @@ bin:
 	mkdir bin
 
 bin/bz80.8xp: bin/bz80.unprettified
-	./tivars_lib_cpp/tivars_cli pack bin/bz80.unprettified bin/bz80 Program BZ80
+	tivars_cli --iformat raw --input bin/bz80.unprettified --oformat varfile --output bin/bz80.8xp --type Program --name BZ80
 
 bin/bz80.unprettified: bin/bz80.tokenized
 	python3 unprettify.py bin/bz80.tokenized bin/bz80.unprettified
 
-bin/bz80.tokenized: bin/bz80.ibasic ./tivars_lib_cpp/tivars_cli
-	./tivars_lib_cpp/tivars_cli tokenize bin/bz80.ibasic bin/bz80.tokenized
+bin/bz80.tokenized: bin/bz80.ibasic
+	tivars_cli --iformat readable --input bin/bz80.ibasic --oformat raw --output bin/bz80.tokenized --type Program
 
 bin/bz80.ibasic: ${includes}
 	gcc -Iinclude -x c-header -undef -P -E src/main.pbasic -o bin/bz80.ibasic

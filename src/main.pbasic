@@ -10,10 +10,6 @@
 #define dbg_step 1
 #define dbg_full_redraw 1
 
-// Doesn't tokenize without this, not sure why
-If 0
-A
-
 // Handle subroutine calls
 // arg_list(1) is the numeric id of the subroutine to run
 // The remaining elements of the list are the arguments for that routine
@@ -101,10 +97,11 @@ While Ans ≠ key_clear
   Output(8,4, reg_spl)
   Output(8,12,get24(reg_spl))
   Output(9,4, reg_pc)
-#if dbg_step
-  While getKey ≠ key_enter:End
-#else
   getKey
+#if dbg_step
+  Repeat Ans
+    getKey
+  End
 #endif
 #endif
 End
