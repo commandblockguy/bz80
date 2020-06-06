@@ -1,0 +1,56 @@
+#include "routine.h"
+
+#define alu_inst_id 7
+#define alu_inst(inst, value) call(alu_inst_id, inst, value)
+
+#define inst arg_list(2)
+#define value arg_list(3)
+
+// todo: all of the bit h
+
+RoutineHeader(alu_inst_id)
+  If inst < 2:Then // ADD, ADC
+    0→flag_n
+    reg_a + value + inst flag_c→temp_var
+    Ans > 255→flag_c
+    wrap8(temp_var)→temp_var
+    reg_a>127 xor Ans>127 and (value>127 xor Ans>127)→flag_pv // todo: check that this is correct
+    temp_var→reg_a
+  Else
+    If inst>3 and inst<7:Then // AND, XOR, OR
+      0→flag_n
+      0→flag_c
+      0→flag_h
+      real_to_bin(value)→list(TMP)
+      real_to_bin(reg_a)
+
+      If inst=4 // AND
+      list(TMP) and Ans→list(TMP)
+      If inst=5 // XOR
+      list(TMP) xor Ans→list(TMP)
+      If inst=4 // OR
+      list(TMP) or Ans→list(TMP)
+
+      bin_to_real(list(TMP))→temp_var
+      Ans→reg_a
+
+      not(remainder(sum(list(TMP)), 2))→flag_pv
+    Else // SUB, SBC, CP
+      1→flag_n
+      reg_a - value - (inst=4)flag_c→temp_var
+      Ans < 0→flag_c
+      wrap8(temp_var)→temp_var
+      reg_a>127 xor value>127 and (reg_a>127 xor Ans>127)→flag_pv // todo: check that this is correct
+
+      // Only update A if not CP
+      If inst<7
+      temp_var→reg_a
+    End
+  End
+
+  temp_var > 127→flag_s
+  not(temp_var)→flag_z
+RoutineFooter
+
+#undef inst
+#undef value

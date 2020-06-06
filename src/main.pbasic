@@ -21,6 +21,7 @@ If dim(call_list):Then
 #include "routines/set_hl.pbasic"
 #include "routines/set_r.pbasic"
 #include "routines/set_rp.pbasic"
+#include "routines/alu_inst.pbasic"
   Return
 End
 
