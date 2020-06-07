@@ -98,12 +98,12 @@ While Ans ≠ key_clear
   Output(8,4, reg_spl)
   Output(8,12,get24(reg_spl))
   Output(9,4, reg_pc)
+#endif
   getKey
-#if dbg_step
+#if dbg && dbg_step
   Repeat Ans
     getKey
   End
-#endif
 #endif
 End
 
