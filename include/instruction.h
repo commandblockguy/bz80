@@ -39,7 +39,7 @@
 #define get_h(prefix)  mid_byte(table_curr_hl(prefix))
 #define get_l(prefix)  low_byte(table_curr_hl(prefix))
 
-#define get_r(prefix, x)       get_hl(prefix):table_r(x+1)
+#define get_r(prefix, x)       0:If prefix>prefix_misc:Then:reg_pc+1→reg_pc:get_byte(Ans)→inst_immediate:End:signed8(Ans)+get_hl(prefix):table_r(x+1)
 #define get_rp(prefix, x)      get_hl(prefix):table_rp(x+1)
 
 #endif

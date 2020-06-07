@@ -21,7 +21,10 @@ RoutineHeader(set_r_id)
           set_low_byte(Ans, reg_ude)→reg_ude
         Else
           If reg=6:Then
-            Ans→mem(get_hl(inst_prefix))
+            0
+            If dim(inst_part_list)>7
+              signed8(inst_immediate)
+            wrap8(value)→mem(1+Ans+get_hl(inst_prefix))
           Else
             If reg=7:Then
               Ans→reg_a

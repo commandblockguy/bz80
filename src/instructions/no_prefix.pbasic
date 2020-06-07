@@ -42,7 +42,6 @@ If inst_x=0:Then
       If inst_p=1
         get_byte(reg_ude)→reg_a
       If inst_p=2:Then
-        Pause {inst_immediate, get_byte(inst_immediate)}
         set_hl(get_byte(inst_immediate))
       End
       If inst_p=3
@@ -91,8 +90,10 @@ If inst_x=0:Then
   End
   If inst_z=6:Then // LD r, n
     wrap24(reg_pc + 1)→reg_pc
-    signed8(get_byte(reg_pc))→inst_immediate
-    set_r(inst_y, inst_immediate)
+    get_byte(reg_pc)→inst_immediate
+    wrap24(reg_pc + 1)→reg_pc
+    signed8(get_byte(reg_pc))→temp_var // because I'm too lazy to add a second immediate value
+    set_r(inst_y, temp_var)
   End
   If inst_z=7:Then
     0→flag_h
