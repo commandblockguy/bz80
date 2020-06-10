@@ -108,6 +108,3 @@ While Ans ≠ key_clear
 End
 
 Lbl lbl_exit
-// Probably best to delete these to avoid confusing people checking their mem menu
-DelVar table_curr_hl
-DelVar table_cc

@@ -1,0 +1,49 @@
+get_r(inst_z)
+If inst_x=0:Then // Shifts and rotates
+  Ans→temp_var
+  If inst_y=0:Then // RLC r
+    Ans > 127→flag_c
+    wrap8(2 temp_var + Ans)→temp_var
+  End
+  If inst_y=1:Then // RRC r
+    remainder(Ans, 2)→flag_c
+    128 Ans + int(temp_var / 2)→temp_var
+  End
+  If inst_y=2:Then // RL r
+    2 Ans + flag_c→temp_var
+    temp_var > 255→flag_c
+    wrap8(temp_var)→temp_var
+  End
+  If inst_y=3:Then // RR r
+    temp_var / 2 + 128 flag_c→temp_var
+    2 fPart(temp_var)→flag_c
+    int(temp_var)→temp_var
+  End
+  If inst_y=4:Then // SLA r
+    Ans > 127→flag_c
+    wrap8(2 temp_var)→temp_var
+  End
+  If inst_y=5:Then // SRA r
+    remainder(Ans, 2)→flag_c
+    128 (temp_var > 127) + int(temp_var / 2)→temp_var
+  End
+  If inst_y>5:Then // SLL r / SLA r
+    Ans > 127→flag_c
+    wrap8(2 temp_var)→temp_var
+  End
+  not(temp_var)→flag_z
+  temp_var>127→flag_s
+  0→flag_h
+  0→flag_n
+  parity(real_to_bin(temp_var))→flag_pv
+  set_r(inst_z, temp_var)
+Else:If inst_x=1:Then // BIT b, r
+  not(int(2fPart(.5 Ans / 2^inst_y)))→flag_z
+  1→flag_h
+  0→flag_n
+Else // RES b, r / SET b,r
+  real_to_bin(Ans)→temp_list
+  temp_list(inst_y + 1)
+  remainder(inst_x, 2)→bin_to_real(Ans)
+  set_r(inst_z, Ans)
+End:End

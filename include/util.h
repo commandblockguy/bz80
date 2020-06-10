@@ -5,6 +5,7 @@
 #define temp_var  T
 #define temp_var2 Q
 #define temp_var3 J
+#define temp_list list(TMP)
 
 
 #define text_cols 26

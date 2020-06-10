@@ -23,4 +23,6 @@
 #define bin_to_real(l) Σ(l(X+1)2^X,X,0,7)
 #define real_to_bin(n) int(2fPart(.5 seq(n / 2^I, I, 0, 7)))
 
+#define parity(list) not(remainder(sum(list), 2))
+
 #endif

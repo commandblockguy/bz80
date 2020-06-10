@@ -21,20 +21,20 @@ RoutineHeader(alu_inst_id)
       0→flag_n
       0→flag_c
       0→flag_h
-      real_to_bin(value)→list(TMP)
+      real_to_bin(value)→temp_list
       real_to_bin(reg_a)
 
       If inst=4 // AND
-      list(TMP) and Ans→list(TMP)
+      temp_list and Ans→temp_list
       If inst=5 // XOR
-      list(TMP) xor Ans→list(TMP)
+      temp_list xor Ans→temp_list
       If inst=4 // OR
-      list(TMP) or Ans→list(TMP)
+      temp_list or Ans→temp_list
 
-      bin_to_real(list(TMP))→temp_var
+      bin_to_real(temp_list)→temp_var
       Ans→reg_a
 
-      not(remainder(sum(list(TMP)), 2))→flag_pv
+      parity(temp_list)→flag_pv
     Else // SUB, SBC, CP
       1→flag_n
       reg_a - value - (inst=4)flag_c→temp_var
