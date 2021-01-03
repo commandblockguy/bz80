@@ -1,4 +1,8 @@
-get_r(inst_z)
+If inst_prefix=prefix_bits:Then
+  get_r(inst_prefix, inst_z)
+Else
+  get_byte(get_hl(inst_prefix)+signed8(inst_immediate))
+End
 If inst_x=0:Then // Shifts and rotates
   Ans→temp_var
   If inst_y=0:Then // RLC r

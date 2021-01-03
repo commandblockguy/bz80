@@ -1,0 +1,1 @@
+{ echo -n \{; od -An -vtu1 -w1 $1 | paste -sd, -; } | tivars_cli --type RealList --iformat readable --oformat varfile --input /dev/stdin --output TEST.8xl --name L₁

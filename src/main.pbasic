@@ -7,7 +7,7 @@
 #include "keys.h"
 
 #define dbg 1
-#define dbg_step 1
+#define dbg_step 0
 #define dbg_full_redraw 1
 
 // Handle subroutine calls
@@ -49,7 +49,7 @@ DelVar madl
 
 // Set up register tables
 TOSTR({reg_uhl,reg_uhl,reg_uhl,reg_ix,reg_iy,reg_ix,reg_iy})→table_curr_hl
-TOSTR(remainder(int({reg_ubc/256,reg_ubc,reg_ude/256,reg_ude,Ans/256,Ans,get_byte(reg_uhl),reg_a}),256))→table_r
+TOSTR(remainder(int({reg_ubc/256,reg_ubc,reg_ude/256,reg_ude,Ans/256,Ans,get_byte(Ans),reg_a}),256))→table_r
 TOSTR({reg_ubc,reg_ude,Ans,reg_spl})→table_rp
 TOSTR({flag_z,flag_c,flag_pv,flag_s})→table_cc
 
